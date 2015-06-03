@@ -31,6 +31,16 @@ namespace Thinktecture.IdentityModel.Client
             _httpErrorReason = reason;
         }
 
+        static bool IsNullOrWhiteSpace(string value)
+        {
+#if NET35
+            return String.IsNullOrEmpty(value) && value.Trim().Length == 0;
+#else 
+            return String.IsNullOrWhiteSpace(value);
+#endif
+
+        }
+
         public bool IsHttpError
         {
             get
@@ -84,7 +94,7 @@ namespace Thinktecture.IdentityModel.Client
             get
             {
                 return (IsHttpError ||
-                        !string.IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error)));
+                        !IsNullOrWhiteSpace(GetStringOrNull(OAuth2Constants.Error)));
             }
         }
 

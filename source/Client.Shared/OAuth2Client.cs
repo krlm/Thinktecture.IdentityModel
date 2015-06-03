@@ -75,6 +75,16 @@ namespace Thinktecture.IdentityModel.Client
             }
         }
 
+        static bool IsNullOrWhiteSpace(string value)
+        {
+#if NET35
+            return String.IsNullOrEmpty(value) && value.Trim().Length == 0;
+#else 
+            return String.IsNullOrWhiteSpace(value);
+#endif
+
+        }
+
         public string CreateCodeFlowUrl(
             string clientId, 
             string scope = null, 
@@ -137,37 +147,37 @@ namespace Thinktecture.IdentityModel.Client
                 { OAuth2Constants.ResponseType, responseType }
             };
 
-            if (!string.IsNullOrWhiteSpace(scope))
+            if (!IsNullOrWhiteSpace(scope))
             {
                 values.Add(OAuth2Constants.Scope, scope);
             }
 
-            if (!string.IsNullOrWhiteSpace(redirectUri))
+            if (!IsNullOrWhiteSpace(redirectUri))
             {
                 values.Add(OAuth2Constants.RedirectUri, redirectUri);
             }
 
-            if (!string.IsNullOrWhiteSpace(state))
+            if (!IsNullOrWhiteSpace(state))
             {
                 values.Add(OAuth2Constants.State, state);
             }
 
-            if (!string.IsNullOrWhiteSpace(nonce))
+            if (!IsNullOrWhiteSpace(nonce))
             {
                 values.Add(OAuth2Constants.Nonce, nonce);
             }
 
-            if (!string.IsNullOrWhiteSpace(loginHint))
+            if (!IsNullOrWhiteSpace(loginHint))
             {
                 values.Add(OAuth2Constants.LoginHint, loginHint);
             }
 
-            if (!string.IsNullOrWhiteSpace(acrValues))
+            if (!IsNullOrWhiteSpace(acrValues))
             {
                 values.Add(OAuth2Constants.AcrValues, acrValues);
             }
 
-            if (!string.IsNullOrWhiteSpace(responseMode))
+            if (!IsNullOrWhiteSpace(responseMode))
             {
                 values.Add(OAuth2Constants.ResponseMode, responseMode);
             }
@@ -190,7 +200,7 @@ namespace Thinktecture.IdentityModel.Client
                 { OAuth2Constants.Password, password }
             };
 
-            if (!string.IsNullOrWhiteSpace(scope))
+            if (!IsNullOrWhiteSpace(scope))
             {
                 fields.Add(OAuth2Constants.Scope, scope);
             }
@@ -228,7 +238,7 @@ namespace Thinktecture.IdentityModel.Client
                 { OAuth2Constants.GrantType, OAuth2Constants.GrantTypes.ClientCredentials }
             };
 
-            if (!string.IsNullOrWhiteSpace(scope))
+            if (!IsNullOrWhiteSpace(scope))
             {
                 fields.Add(OAuth2Constants.Scope, scope);
             }
@@ -243,7 +253,7 @@ namespace Thinktecture.IdentityModel.Client
                 { OAuth2Constants.GrantType, grantType }
             };
 
-            if (!string.IsNullOrWhiteSpace(scope))
+            if (!IsNullOrWhiteSpace(scope))
             {
                 fields.Add(OAuth2Constants.Scope, scope);
             }
@@ -264,7 +274,7 @@ namespace Thinktecture.IdentityModel.Client
                 { OAuth2Constants.Assertion, assertion },
             };
 
-            if (!string.IsNullOrWhiteSpace(scope))
+            if (!IsNullOrWhiteSpace(scope))
             {
                 fields.Add(OAuth2Constants.Scope, scope);
             }
